@@ -1,8 +1,8 @@
-public class funcion {
+public class clase {
 	
 	public int var_uno = 1;
 	public double var_dos = 2.0;
-	
+
     public int var_uno = 0;
 
 	while(var_uno>1) {
