@@ -1,11 +1,19 @@
 PARSER_BEGIN(Analizador)
+package  parser;
+
 class Analizador
 {
+
+    public static TablaDeSimbolos tablaDeSimbolos;
+
 	public static void main(String[] args) throws ParseException, FileNotFoundException
 	{
+
+	    tablaDeSimbolos = new TablaDeSimbolos();
+
 		try
 		{
-			Analizador analizador=new Analizador(new FileInputStream("src/prueba.txt"));
+			Analizador analizador=new Analizador(new FileInputStream("src/parser/prueba.txt"));
 			analizador.programa();
 		}
 		catch(ParseException e)
@@ -13,7 +21,9 @@ class Analizador
 			System.out.println(e.getMessage());
 		}
 	}
+
 }
+
 PARSER_END(Analizador)
 /* Ignorados */
 SKIP: {" " | "\t" | "\r" | "\n" }
@@ -38,6 +48,7 @@ TOKEN :
 | < CORCHETE_DER: "}" >
 | < PUNTO_Y_COMA: ";" >
 | < COMA: "," >
+| < PUNTO: ".">
 }
 
 
@@ -57,9 +68,10 @@ TOKEN:
 < LITERAL_ENTERA: ["0"-"9"](["0"-"9"])* >
 |< LITERAL_BOOLEANA: "false" | "true" >
 |< LITERAL_CADENA: ("'" (~["'"])* "'") >
+|< LITERAL_DOBLE: <LITERAL_ENTERA> <PUNTO> <LITERAL_ENTERA> >
 }
 
-/* Identificador */
+/* simbolos.Identificador */
 TOKEN:
 {
 	< IDENTIFICADOR:["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","-"])* >
@@ -69,22 +81,64 @@ TOKEN:
 void programa():{}{
 	try{
 		<MODIFICADOR> <CLASE> <IDENTIFICADOR> <CORCHETE_IZQ> (expresion())* <CORCHETE_DER>
+		{System.out.println(tablaDeSimbolos);}
 	}catch(ParseException e){
 		System.out.println(e.toString());
 	}
 
 }
 
-void declaracion_de_variable():{}{
-	<MODIFICADOR> <TIPO> asignacion_de_variable()
+void declaracion_de_variable():{
+    Token t = null;
+    Token tokenTipoDatos;
+    Variable variable = null;
+}{
+	<MODIFICADOR>
+	tokenTipoDatos  = <TIPO>
+	(
+        LOOKAHEAD(2)
+        variable = asignacion_durante_creacion_de_variable(tokenTipoDatos)
+        |
+        t = <IDENTIFICADOR>
+	)
+	{
+        if (variable == null){
+            variable = new Variable(token,tokenTipoDatos);
+        }
+        tablaDeSimbolos.agregarIdentificador(variable);
+	}
+}
+
+Variable asignacion_durante_creacion_de_variable(Token tokenTipoDatos):{
+    Token t;
+    Token valor;
+    Variable variable;
+}{
+	t = <IDENTIFICADOR>
+	<ASIGNACION>
+	valor = valor()
+	{
+	    variable = new Variable(t,tokenTipoDatos,valor);
+	    return variable;
+	}
 }
 
 void asignacion_de_variable():{}{
-	<IDENTIFICADOR> <ASIGNACION> literal()
+	<IDENTIFICADOR> <ASIGNACION> valor()
 }
 
-void literal():{}{
-    (<LITERAL_ENTERA> | <LITERAL_BOOLEANA> | <LITERAL_CADENA>)
+Token valor():{
+    Token t;
+}{
+    t = literal()
+    {return t;}
+}
+
+Token literal():{
+    Token t;
+}{
+    ( t = <LITERAL_ENTERA> | t = <LITERAL_BOOLEANA> | t = <LITERAL_CADENA> | t = <LITERAL_DOBLE>)
+    {return t;}
 }
 
 void expresion():{}{
