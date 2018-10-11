@@ -1,9 +1,7 @@
 public class clase {
 	
-	public int var_uno = 1;
-	public double var_dos = 2.0;
-
-    var_tres = 0;
+	public boolean var_uno = false;
+	public int var_dos = 2;
 
 	while(var_uno>1) {
 		if (var_dos>2) {

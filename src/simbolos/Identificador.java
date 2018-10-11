@@ -1,6 +1,6 @@
 package simbolos;
 
-import constantes.TiposDeDatos;
+import tiposDeDatos.TiposDeDatos;
 import parser.Token;
 
 
@@ -22,11 +22,11 @@ public abstract class Identificador {
         this.token = token;
     }
 
-    public TiposDeDatos getTipoDeDatos() {
+    public TiposDeDatos getTipoDeDatoEnum() {
         return tipoDeDatos;
     }
 
-    public void setTipoDeDatos(TiposDeDatos tipoDeDatos) {
+    public void setTipoDeDatoEnum(TiposDeDatos tipoDeDatos) {
         this.tipoDeDatos = tipoDeDatos;
     }
 

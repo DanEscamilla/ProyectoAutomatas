@@ -110,7 +110,7 @@ void declaracion_de_variable():{
 
 //INICIA ASIGNACION DE VARIABLES
 void asignacion(Variable variable):{
-    Object valor;
+    Valor valor;
 }{
     <ASIGNACION>
     valor = valor()
@@ -118,38 +118,49 @@ void asignacion(Variable variable):{
 }
 
 void expresion_asignacion():{
-    Token tokenIdentificador;
     Variable variable;
 }{
-	tokenIdentificador = <IDENTIFICADOR>
-	{variable = (Variable) tablaDeSimbolos.obtenerIdentificador(token);}
+    variable = variable()
 	asignacion(variable)
 }
 //TERMINA ASIGNACION DE VARIABLES
 
-Object valor():{
-    Object valor;
+Variable variable():{
+    Token tokenIdentificador;
 }{
-    valor = literal()
+    tokenIdentificador = <IDENTIFICADOR>
+    {return (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);}
+}
+
+Valor valor():{
+    Valor valor;
+    Variable variable;
+}{
+    (
+        valor = literal()
+        |
+        variable = variable()
+        {valor = variable.getValor();}
+    )
     {return valor;}
 }
 
-Object literal():{
+Valor literal():{
     Token literalToken;
-    Object valorDeLiteral;
+    Valor valorDeLiteral;
 }{
     (
         literalToken = <LITERAL_ENTERA>
-        {valorDeLiteral = Integer.parseInt(literalToken.image);}
+        {valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("INT"));}
         |
         literalToken = <LITERAL_BOOLEANA>
-        {valorDeLiteral = Boolean.parseBoolean(literalToken.image);}
+        {valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("BOOLEAN"));}
         |
         literalToken = <LITERAL_CADENA>
-        {valorDeLiteral = literalToken.image;}
+        {valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("STRING"));}
         |
         literalToken = <LITERAL_DOBLE>
-        {valorDeLiteral = Double.parseDouble(literalToken.image);}
+        {valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("DOUBLE"));}
     )
 
     {return valorDeLiteral;}

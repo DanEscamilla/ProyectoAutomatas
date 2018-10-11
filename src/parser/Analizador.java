@@ -3,6 +3,8 @@ package  parser;
 
 import simbolos.TablaDeSimbolos;
 import simbolos.Variable;
+import tiposDeDatos.TiposDeDatos;
+import tiposDeDatos.Valor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -79,50 +81,71 @@ class Analizador implements AnalizadorConstants {
 
 //INICIA ASIGNACION DE VARIABLES
   static final public void asignacion(Variable variable) throws ParseException {
-    Object valor;
+    Valor valor;
     jj_consume_token(ASIGNACION);
     valor = valor();
      variable.setValor(valor);
   }
 
   static final public void expresion_asignacion() throws ParseException {
-    Token tokenIdentificador;
     Variable variable;
-    tokenIdentificador = jj_consume_token(IDENTIFICADOR);
-         variable = (Variable) tablaDeSimbolos.obtenerIdentificador(token);
+    variable = variable();
     asignacion(variable);
   }
 
 //TERMINA ASIGNACION DE VARIABLES
-  static final public Object valor() throws ParseException {
-    Object valor;
-    valor = literal();
+  static final public Variable variable() throws ParseException {
+    Token tokenIdentificador;
+    tokenIdentificador = jj_consume_token(IDENTIFICADOR);
+     {if (true) return (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);}
+    throw new Error("Missing return statement in function");
+  }
+
+  static final public Valor valor() throws ParseException {
+    Valor valor;
+    Variable variable;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case LITERAL_ENTERA:
+    case LITERAL_BOOLEANA:
+    case LITERAL_CADENA:
+    case LITERAL_DOBLE:
+      valor = literal();
+      break;
+    case IDENTIFICADOR:
+      variable = variable();
+         valor = variable.getValor();
+      break;
+    default:
+      jj_la1[2] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
      {if (true) return valor;}
     throw new Error("Missing return statement in function");
   }
 
-  static final public Object literal() throws ParseException {
+  static final public Valor literal() throws ParseException {
     Token literalToken;
-    Object valorDeLiteral;
+    Valor valorDeLiteral;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LITERAL_ENTERA:
       literalToken = jj_consume_token(LITERAL_ENTERA);
-         valorDeLiteral = Integer.parseInt(literalToken.image);
+         valorDeLiteral = new Valor(literalToken.image, TiposDeDatos.getTipoDeDato("INT"));
       break;
     case LITERAL_BOOLEANA:
       literalToken = jj_consume_token(LITERAL_BOOLEANA);
-         valorDeLiteral = Boolean.parseBoolean(literalToken.image);
+         valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("BOOLEAN"));
       break;
     case LITERAL_CADENA:
       literalToken = jj_consume_token(LITERAL_CADENA);
-         valorDeLiteral = literalToken.image;
+         valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("STRING"));
       break;
     case LITERAL_DOBLE:
       literalToken = jj_consume_token(LITERAL_DOBLE);
-         valorDeLiteral = Double.parseDouble(literalToken.image);
+         valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("DOUBLE"));
       break;
     default:
-      jj_la1[2] = jj_gen;
+      jj_la1[3] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -142,7 +165,7 @@ class Analizador implements AnalizadorConstants {
         declaracion_de_variable();
         break;
       default:
-        jj_la1[3] = jj_gen;
+        jj_la1[4] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -153,7 +176,7 @@ class Analizador implements AnalizadorConstants {
       expresiones_bloque();
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[5] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -168,7 +191,7 @@ class Analizador implements AnalizadorConstants {
       expresion_mientras();
       break;
     default:
-      jj_la1[5] = jj_gen;
+      jj_la1[6] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -202,7 +225,7 @@ class Analizador implements AnalizadorConstants {
         ;
         break;
       default:
-        jj_la1[6] = jj_gen;
+        jj_la1[7] = jj_gen;
         break label_2;
       }
       expresion();
@@ -219,7 +242,7 @@ class Analizador implements AnalizadorConstants {
       jj_consume_token(IDENTIFICADOR);
       break;
     default:
-      jj_la1[7] = jj_gen;
+      jj_la1[8] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -232,7 +255,7 @@ class Analizador implements AnalizadorConstants {
       jj_consume_token(IDENTIFICADOR);
       break;
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -248,13 +271,13 @@ class Analizador implements AnalizadorConstants {
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[9];
+  static final private int[] jj_la1 = new int[10];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x8000620,0x40000,0x7800000,0x8000020,0x8000620,0x600,0x8000620,0x8800000,0x8800000,};
+      jj_la1_0 = new int[] {0x8000620,0x40000,0xf800000,0x7800000,0x8000020,0x8000620,0x600,0x8000620,0x8800000,0x8800000,};
    }
 
   /** Constructor with InputStream. */
@@ -275,7 +298,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -289,7 +312,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -306,7 +329,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -316,7 +339,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -332,7 +355,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -341,7 +364,7 @@ class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -397,7 +420,7 @@ class Analizador implements AnalizadorConstants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 10; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
