@@ -1,6 +1,8 @@
 package simbolos;
 
 import errores.SemanticError;
+import parser.Token;
+
 import java.util.HashMap;
 
 public class TablaDeSimbolos {
@@ -16,6 +18,27 @@ public class TablaDeSimbolos {
                     identificador.getToken().beginLine,
                     identificador.getToken().beginColumn,
                     reason);
+        }
+    }
+
+    public Identificador obtenerIdentificador(Token token){
+        try {
+            return obtenerIdentificador(token.image);
+        } catch (Error e){
+            String reason = "La variable \""+token.image+"\" no existe";
+            throw new SemanticError(
+                    token.beginLine,
+                    token.beginColumn,
+                    reason);
+        }
+
+    }
+
+    public Identificador obtenerIdentificador(String image) throws Error{
+        if (simbolos.containsKey(image)){
+            return simbolos.get(image);
+        } else {
+            throw new Error("No se encontro el identificador \""+image+"\"");
         }
     }
 

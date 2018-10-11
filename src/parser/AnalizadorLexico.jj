@@ -88,61 +88,75 @@ void programa():{}{
 
 }
 
+// INICIA DECLARACION DE VARIABLES -
+
 void declaracion_de_variable():{
-    Token t = null;
-    Token tokenTipoDatos;
+    Token token = null;
+    Token tokenTipoDatos = null;
     Variable variable = null;
+
 }{
 	<MODIFICADOR>
 	tokenTipoDatos  = <TIPO>
-	(
-        LOOKAHEAD(2)
-        variable = asignacion_durante_creacion_de_variable(tokenTipoDatos)
-        |
-        t = <IDENTIFICADOR>
-	)
-	{
-        if (variable == null){
-            variable = new Variable(token,tokenTipoDatos);
-        }
-        tablaDeSimbolos.agregarIdentificador(variable);
+	token           = <IDENTIFICADOR>
+    {
+        variable = new Variable(token,tokenTipoDatos);
+	    tablaDeSimbolos.agregarIdentificador(variable);
 	}
+	[asignacion(variable)]
 }
 
-Variable asignacion_durante_creacion_de_variable(Token tokenTipoDatos):{
-    Token t;
-    Token valor;
+//TERMINA DECLARACION DE VARIABLES
+
+//INICIA ASIGNACION DE VARIABLES
+void asignacion(Variable variable):{
+    Object valor;
+}{
+    <ASIGNACION>
+    valor = valor()
+    {variable.setValor(valor);}
+}
+
+void expresion_asignacion():{
+    Token tokenIdentificador;
     Variable variable;
 }{
-	t = <IDENTIFICADOR>
-	<ASIGNACION>
-	valor = valor()
-	{
-	    variable = new Variable(t,tokenTipoDatos,valor);
-	    return variable;
-	}
+	tokenIdentificador = <IDENTIFICADOR>
+	{variable = (Variable) tablaDeSimbolos.obtenerIdentificador(token);}
+	asignacion(variable)
 }
+//TERMINA ASIGNACION DE VARIABLES
 
-void asignacion_de_variable():{}{
-	<IDENTIFICADOR> <ASIGNACION> valor()
-}
-
-Token valor():{
-    Token t;
+Object valor():{
+    Object valor;
 }{
-    t = literal()
-    {return t;}
+    valor = literal()
+    {return valor;}
 }
 
-Token literal():{
-    Token t;
+Object literal():{
+    Token literalToken;
+    Object valorDeLiteral;
 }{
-    ( t = <LITERAL_ENTERA> | t = <LITERAL_BOOLEANA> | t = <LITERAL_CADENA> | t = <LITERAL_DOBLE>)
-    {return t;}
+    (
+        literalToken = <LITERAL_ENTERA>
+        {valorDeLiteral = Integer.parseInt(literalToken.image);}
+        |
+        literalToken = <LITERAL_BOOLEANA>
+        {valorDeLiteral = Boolean.parseBoolean(literalToken.image);}
+        |
+        literalToken = <LITERAL_CADENA>
+        {valorDeLiteral = literalToken.image;}
+        |
+        literalToken = <LITERAL_DOBLE>
+        {valorDeLiteral = Double.parseDouble(literalToken.image);}
+    )
+
+    {return valorDeLiteral;}
 }
 
 void expresion():{}{
-	(( asignacion_de_variable() | declaracion_de_variable() ) <PUNTO_Y_COMA>) | expresiones_bloque()
+	(( expresion_asignacion() | declaracion_de_variable() ) <PUNTO_Y_COMA>) | expresiones_bloque()
 }
 
 void expresiones_bloque():{}{
