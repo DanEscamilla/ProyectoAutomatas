@@ -3,7 +3,7 @@ public class clase {
 	public int var_uno = 1;
 	public int var_dos = 2;
 
-    public int test = 1 + 2.0;
+    var3 = 0;
 
 	while(var_uno>1) {
 		if (var_dos>2) {

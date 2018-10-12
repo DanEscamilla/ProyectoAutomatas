@@ -75,7 +75,7 @@ TOKEN:
 /* simbolos.Identificador */
 TOKEN:
 {
-	< IDENTIFICADOR:["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","-"])* >
+	< IDENTIFICADOR:["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","-","0"-"9"])* >
 }
 
 

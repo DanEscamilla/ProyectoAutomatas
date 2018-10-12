@@ -255,7 +255,7 @@ static private int jjMoveNfa_0(int startState, int curPos)
                   break;
                case 8:
                case 40:
-                  if (curChar != 45)
+                  if ((0x3ff200000000000L & l) == 0L)
                      break;
                   if (kind > 28)
                      kind = 28;
