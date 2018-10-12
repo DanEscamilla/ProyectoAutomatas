@@ -59,7 +59,8 @@ TOKEN :
 | < COMPARADORES: ">" | "<" | "==" | "<=" | ">=" | "!=" >
 | < MAS: "+" >
 | < MENOS: "-" >
-| < MULTIPLICACION: "*">
+| < POR: "*">
+| < ENTRE: "/">
 }
 
 /* Literales */
@@ -113,7 +114,7 @@ void asignacion(Variable variable):{
     Valor valor;
 }{
     <ASIGNACION>
-    valor = valor()
+    valor = expresion_matematica()
     {variable.setValor(valor);}
 }
 
@@ -165,6 +166,83 @@ Valor literal():{
 
     {return valorDeLiteral;}
 }
+
+
+//INICIA OPERACIOONES MATEMATICAS
+
+Valor expresion_matematica():{
+    Valor resultado;
+}{
+    (
+        LOOKAHEAD(2)
+        resultado = operacion_matematica()
+        |
+        resultado = valor()
+    )
+    {return resultado;}
+}
+
+Valor operacion_matematica():{
+    Valor operando1;
+    Valor resultado = null;
+}{
+    operando1 = valor()
+    resultado = operaciones(operando1)
+    (resultado = operaciones(resultado))*
+
+    {
+    System.out.println("operacion");
+    return resultado;
+    }
+
+}
+Valor operaciones(Valor operando1):{
+    Valor resultado;
+}{
+    (
+        resultado = suma(operando1)
+        |
+        resultado = resta(operando1)
+        |
+        resultado = multiplicacion(operando1)
+        |
+        resultado = division(operando1)
+    )
+    {return resultado;}
+}
+Valor suma(Valor operando1):{
+    Valor operando2;
+}{
+    <MAS>
+    operando2 = valor()
+    {return operando1.suma(operando2);}
+}
+
+Valor resta(Valor operando1):{
+    Valor operando2;
+}{
+    <MENOS>
+    operando2 = valor()
+    {return operando1.resta(operando2);}
+}
+
+Valor division(Valor operando1):{
+    Valor operando2;
+}{
+    <ENTRE>
+    operando2 = valor()
+    {return operando1.division(operando2);}
+}
+
+Valor multiplicacion(Valor operando1):{
+    Valor operando2;
+}{
+    <POR>
+    operando2 = valor()
+    {return operando1.multiplicacion(operando2);}
+}
+
+//TERMINA OPERACIONES MATEMATICAS
 
 void expresion():{}{
 	(( expresion_asignacion() | declaracion_de_variable() ) <PUNTO_Y_COMA>) | expresiones_bloque()

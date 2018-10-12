@@ -45,17 +45,19 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int MENOS = 21;
   /** RegularExpression Id. */
-  int MULTIPLICACION = 22;
+  int POR = 22;
   /** RegularExpression Id. */
-  int LITERAL_ENTERA = 23;
+  int ENTRE = 23;
   /** RegularExpression Id. */
-  int LITERAL_BOOLEANA = 24;
+  int LITERAL_ENTERA = 24;
   /** RegularExpression Id. */
-  int LITERAL_CADENA = 25;
+  int LITERAL_BOOLEANA = 25;
   /** RegularExpression Id. */
-  int LITERAL_DOBLE = 26;
+  int LITERAL_CADENA = 26;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 27;
+  int LITERAL_DOBLE = 27;
+  /** RegularExpression Id. */
+  int IDENTIFICADOR = 28;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -85,6 +87,7 @@ public interface AnalizadorConstants {
     "\"+\"",
     "\"-\"",
     "\"*\"",
+    "\"/\"",
     "<LITERAL_ENTERA>",
     "<LITERAL_BOOLEANA>",
     "<LITERAL_CADENA>",
