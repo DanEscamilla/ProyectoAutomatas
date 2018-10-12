@@ -1,6 +1,6 @@
 public class clase {
 	
-	public int var_uno = true + true;
+	public string var_uno = 'adios '+"hola";
 	public int var_dos = 2;
 
 
