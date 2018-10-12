@@ -6,7 +6,8 @@ public class Cadena implements TipoDeDato<String> {
 
     @Override
     public String parseDato(String stringDato) {
-        return stringDato;
+        String regexParaRemoverComillas = "(?<!\\\\)['\"]";
+        return stringDato.replaceAll(regexParaRemoverComillas,"");
     }
 
     @Override

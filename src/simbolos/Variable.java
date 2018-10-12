@@ -22,7 +22,7 @@ public class Variable extends Identificador{
         if (valor.getTipoDeDato().getEnum() == this.getTipoDeDatoEnum()){
             this.valor = valor;
         } else {
-            throw new SemanticError("Tipo de dato incompatible");
+          throw new SemanticError(this.getToken(),"Tipo de dato incompatible, variable es de tipo "+this.getTipoDeDato()+" y se le esta tratando de asignar un valor "+valor.getTipoDeDato());
         }
 
     }
