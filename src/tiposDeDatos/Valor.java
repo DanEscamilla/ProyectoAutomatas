@@ -1,6 +1,7 @@
 package tiposDeDatos;
 
 import errores.SemanticError;
+import parser.Token;
 
 public class Valor {
 
@@ -33,34 +34,50 @@ public class Valor {
         this.objectValor = objectValor;
     }
 
-    private void validarTipoDeDatos(Valor operando2,String operacion){
+    private void validarTipoDeDatos(Valor operando2,String operacion,Token token){
       if (operando2.getTipoDeDato().getEnum() != tipoDeDato.getEnum()){
-        throw new SemanticError("Tipo de dato incompatible no se puede "+operacion+" "+tipoDeDato+" con "+operando2.getTipoDeDato());
+        throw new SemanticError(token,"Tipo de dato incompatible, no se puede "+operacion+" "+tipoDeDato+" con "+operando2.getTipoDeDato());
       }
     }
 
-    public Valor suma(Valor operando2){
-        validarTipoDeDatos(operando2,"sumar");
-        Object resultado = tipoDeDato.suma(objectValor,operando2.getObjectValor());
-        return new Valor(resultado,tipoDeDato);
+    public Valor suma(Valor operando2,Token tokenOperador){
+        validarTipoDeDatos(operando2,"sumar",tokenOperador);
+        try {
+          Object resultado = tipoDeDato.suma(objectValor,operando2.getObjectValor());
+          return new Valor(resultado,tipoDeDato);
+        } catch (SemanticError e){
+          throw new SemanticError(tokenOperador,e.getMessage());
+        }
     }
 
-    public Valor resta(Valor operando2){
-        validarTipoDeDatos(operando2,"restar");
-        Object resultado = tipoDeDato.resta(objectValor,operando2.getObjectValor());
-        return new Valor(resultado,tipoDeDato);
+    public Valor resta(Valor operando2,Token tokenOperador){
+        validarTipoDeDatos(operando2,"restar",tokenOperador);
+        try {
+          Object resultado = tipoDeDato.resta(objectValor,operando2.getObjectValor());
+          return new Valor(resultado,tipoDeDato);
+        } catch (SemanticError e) {
+            throw new SemanticError(tokenOperador, e.getMessage());
+        }
     }
 
-    public Valor division(Valor operando2){
-      validarTipoDeDatos(operando2,"dividir");
-        Object resultado = tipoDeDato.division(objectValor,operando2.getObjectValor());
-        return new Valor(resultado,tipoDeDato);
+    public Valor division(Valor operando2,Token tokenOperador){
+      validarTipoDeDatos(operando2,"dividir",tokenOperador);
+      try {
+          Object resultado = tipoDeDato.division(objectValor,operando2.getObjectValor());
+          return new Valor(resultado,tipoDeDato);
+        } catch (SemanticError e){
+          throw new SemanticError(tokenOperador,e.getMessage());
+        }
     }
 
-    public Valor multiplicacion(Valor operando2){
-        validarTipoDeDatos(operando2,"multiplicar");
-        Object resultado = tipoDeDato.multiplicacion(objectValor,operando2.getObjectValor());
-        return new Valor(resultado,tipoDeDato);
+    public Valor multiplicacion(Valor operando2,Token tokenOperador){
+        validarTipoDeDatos(operando2,"multiplicar",tokenOperador);
+        try {
+          Object resultado = tipoDeDato.multiplicacion(objectValor,operando2.getObjectValor());
+          return new Valor(resultado,tipoDeDato);
+        } catch (SemanticError e){
+          throw new SemanticError(tokenOperador,e.getMessage());
+        }
     }
 
     @Override

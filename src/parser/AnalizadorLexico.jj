@@ -212,34 +212,38 @@ Valor operaciones(Valor operando1):{
 }
 Valor suma(Valor operando1):{
     Valor operando2;
+    Token tokenOperador;
 }{
-    <MAS>
+    tokenOperador = <MAS>
     operando2 = valor()
-    {return operando1.suma(operando2);}
+    {return operando1.suma(operando2,tokenOperador);}
 }
 
 Valor resta(Valor operando1):{
     Valor operando2;
+    Token tokenOperador;
 }{
-    <MENOS>
+    tokenOperador = <MENOS>
     operando2 = valor()
-    {return operando1.resta(operando2);}
+    {return operando1.resta(operando2,tokenOperador);}
 }
 
 Valor division(Valor operando1):{
     Valor operando2;
+    Token tokenOperador;
 }{
-    <ENTRE>
+    tokenOperador = <ENTRE>
     operando2 = valor()
-    {return operando1.division(operando2);}
+    {return operando1.division(operando2,tokenOperador);}
 }
 
 Valor multiplicacion(Valor operando1):{
     Valor operando2;
+    Token tokenOperador;
 }{
-    <POR>
+    tokenOperador = <POR>
     operando2 = valor()
-    {return operando1.multiplicacion(operando2);}
+    {return operando1.multiplicacion(operando2,tokenOperador);}
 }
 
 //TERMINA OPERACIONES MATEMATICAS

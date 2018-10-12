@@ -228,33 +228,37 @@ class Analizador implements AnalizadorConstants {
 
   static final public Valor suma(Valor operando1) throws ParseException {
     Valor operando2;
-    jj_consume_token(MAS);
+    Token tokenOperador;
+    tokenOperador = jj_consume_token(MAS);
     operando2 = valor();
-     {if (true) return operando1.suma(operando2);}
+     {if (true) return operando1.suma(operando2,tokenOperador);}
     throw new Error("Missing return statement in function");
   }
 
   static final public Valor resta(Valor operando1) throws ParseException {
     Valor operando2;
-    jj_consume_token(MENOS);
+    Token tokenOperador;
+    tokenOperador = jj_consume_token(MENOS);
     operando2 = valor();
-     {if (true) return operando1.resta(operando2);}
+     {if (true) return operando1.resta(operando2,tokenOperador);}
     throw new Error("Missing return statement in function");
   }
 
   static final public Valor division(Valor operando1) throws ParseException {
     Valor operando2;
-    jj_consume_token(ENTRE);
+    Token tokenOperador;
+    tokenOperador = jj_consume_token(ENTRE);
     operando2 = valor();
-     {if (true) return operando1.division(operando2);}
+     {if (true) return operando1.division(operando2,tokenOperador);}
     throw new Error("Missing return statement in function");
   }
 
   static final public Valor multiplicacion(Valor operando1) throws ParseException {
     Valor operando2;
-    jj_consume_token(POR);
+    Token tokenOperador;
+    tokenOperador = jj_consume_token(POR);
     operando2 = valor();
-     {if (true) return operando1.multiplicacion(operando2);}
+     {if (true) return operando1.multiplicacion(operando2,tokenOperador);}
     throw new Error("Missing return statement in function");
   }
 
@@ -379,13 +383,13 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
-  static private boolean jj_3R_14() {
-    if (jj_scan_token(IDENTIFICADOR)) return true;
+  static private boolean jj_3R_16() {
+    if (jj_scan_token(MENOS)) return true;
     return false;
   }
 
-  static private boolean jj_3R_16() {
-    if (jj_scan_token(MENOS)) return true;
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(IDENTIFICADOR)) return true;
     return false;
   }
 
@@ -466,13 +470,13 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
-  static private boolean jj_3R_8() {
-    if (jj_3R_14()) return true;
+  static private boolean jj_3R_17() {
+    if (jj_scan_token(POR)) return true;
     return false;
   }
 
-  static private boolean jj_3R_17() {
-    if (jj_scan_token(POR)) return true;
+  static private boolean jj_3R_8() {
+    if (jj_3R_14()) return true;
     return false;
   }
 
@@ -487,6 +491,11 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
+  static private boolean jj_3R_18() {
+    if (jj_scan_token(ENTRE)) return true;
+    return false;
+  }
+
   static private boolean jj_3R_5() {
     Token xsp;
     xsp = jj_scanpos;
@@ -494,11 +503,6 @@ class Analizador implements AnalizadorConstants {
     jj_scanpos = xsp;
     if (jj_3R_8()) return true;
     }
-    return false;
-  }
-
-  static private boolean jj_3R_18() {
-    if (jj_scan_token(ENTRE)) return true;
     return false;
   }
 

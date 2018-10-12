@@ -1,4 +1,7 @@
 package errores;/* JavaCCOptions: */
+
+import parser.Token;
+
 /** Token Manager Error. */
 public class SemanticError extends Error
 {
@@ -79,6 +82,12 @@ public class SemanticError extends Error
                 reason + ".\n");
     }
 
+    protected static String GenerarMensajaDeError(int errorLine, String reason) {
+        return("Error semantico en la linea " +
+                errorLine  +
+                reason + ".\n");
+    }
+
     /**
      * You can also modify the body of this method to customize your error messages.
      * For example, cases like LOOP_DETECTED and INVALID_LEXICAL_STATE are not
@@ -105,8 +114,15 @@ public class SemanticError extends Error
         super(message);
     }
 
+
+    public SemanticError(int errorLine, String reason) {
+        this(GenerarMensajaDeError(errorLine,reason));
+    }
     /** Full Constructor. */
     public SemanticError(int errorLine, int errorColumn, String reason) {
         this(GenerarMensajaDeError(errorLine, errorColumn,reason));
+    }
+    public SemanticError(Token token, String reason){
+      this(GenerarMensajaDeError(token.beginLine,token.beginColumn,reason));
     }
 }
