@@ -97,7 +97,9 @@ class Analizador implements AnalizadorConstants {
   static final public Variable variable() throws ParseException {
     Token tokenIdentificador;
     tokenIdentificador = jj_consume_token(IDENTIFICADOR);
-     {if (true) return (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);}
+      Variable variable = (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);
+      variable.setAparicionMasReciente(tokenIdentificador);
+      {if (true) return variable;}
     throw new Error("Missing return statement in function");
   }
 
@@ -378,16 +380,6 @@ class Analizador implements AnalizadorConstants {
     finally { jj_save(0, xla); }
   }
 
-  static private boolean jj_3_1() {
-    if (jj_3R_4()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_16() {
-    if (jj_scan_token(MENOS)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_14() {
     if (jj_scan_token(IDENTIFICADOR)) return true;
     return false;
@@ -503,6 +495,16 @@ class Analizador implements AnalizadorConstants {
     jj_scanpos = xsp;
     if (jj_3R_8()) return true;
     }
+    return false;
+  }
+
+  static private boolean jj_3_1() {
+    if (jj_3R_4()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_16() {
+    if (jj_scan_token(MENOS)) return true;
     return false;
   }
 

@@ -130,7 +130,11 @@ Variable variable():{
     Token tokenIdentificador;
 }{
     tokenIdentificador = <IDENTIFICADOR>
-    {return (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);}
+    {
+      Variable variable = (Variable) tablaDeSimbolos.obtenerIdentificador(tokenIdentificador);
+      variable.setAparicionMasReciente(tokenIdentificador);
+      return variable;
+    }
 }
 
 Valor valor():{

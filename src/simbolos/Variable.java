@@ -6,15 +6,17 @@ import tiposDeDatos.Valor;
 public class Variable extends Identificador{
 
     private Valor valor;
+    private Token aparicionMasReciente;
 
     public Variable(Token token, Token tipoDeDato) {
         super(token,tipoDeDato);
+        this.setAparicionMasReciente(token);
     }
 
     public Valor getValor() {
-//        if (valor==null){
-//            throw new SemanticError("La variable no tiene un valor");
-//        }
+        if (valor==null){
+            throw new SemanticError(this.getToken(),"La variable "+this.getToken().image+" no ha sido inicializada");
+        }
         return valor;
     }
 
@@ -26,4 +28,13 @@ public class Variable extends Identificador{
         }
 
     }
+
+    public Token getAparicionMasReciente() {
+        return aparicionMasReciente;
+    }
+
+    public void setAparicionMasReciente(Token aparicionMasReciente) {
+        this.aparicionMasReciente = aparicionMasReciente;
+    }
+
 }

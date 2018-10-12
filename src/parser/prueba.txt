@@ -9,4 +9,7 @@ public class clase {
 			public int var_cuatro;
 		 }
 	}
+	if (var_uno>1){
+	    var_dos = var_cuatro;
+	}
 }
