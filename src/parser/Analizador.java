@@ -8,20 +8,21 @@ import tiposDeDatos.Valor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 class Analizador implements AnalizadorConstants {
 
     public static TablaDeSimbolos tablaDeSimbolos;
 
-        public static void main(String[] args) throws ParseException, FileNotFoundException
+        public static void main(String[] args) throws ParseException, FileNotFoundException, IOException
         {
             tablaDeSimbolos = new TablaDeSimbolos();
 
 
             InputStream fis;
 
-            if (args.length > 0){
+            if (System.in.available() > 0){
                 fis = System.in;
             } else {
                 fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
