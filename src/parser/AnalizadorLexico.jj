@@ -1,6 +1,15 @@
 PARSER_BEGIN(Analizador)
 package  parser;
 
+import simbolos.TablaDeSimbolos;
+import simbolos.Variable;
+import tiposDeDatos.TiposDeDatos;
+import tiposDeDatos.Valor;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 class Analizador
 {
 
@@ -8,18 +17,30 @@ class Analizador
 
 	public static void main(String[] args) throws ParseException, FileNotFoundException
 	{
+            tablaDeSimbolos = new TablaDeSimbolos();
 
-	    tablaDeSimbolos = new TablaDeSimbolos();
 
-		try
-		{
-			Analizador analizador=new Analizador(new FileInputStream("src/parser/prueba.txt"));
-			analizador.programa();
-		}
-		catch(ParseException e)
-		{
-			System.out.println(e.getMessage());
-		}
+            InputStream fis;
+
+            if (args.length > 0){
+                fis = System.in;
+            } else {
+                fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
+            }
+
+            try
+            {
+
+                Analizador analizador=new Analizador(fis);
+                analizador.programa();
+
+                System.out.println("Variables y sus valores\u005cn");
+                System.out.println(tablaDeSimbolos);
+            }
+            catch(ParseException e)
+            {
+                    System.out.println(e.getMessage());
+            }
 	}
 
 }
@@ -82,7 +103,6 @@ TOKEN:
 void programa():{}{
 	try{
 		<MODIFICADOR> <CLASE> <IDENTIFICADOR> <CORCHETE_IZQ> (expresion())* <CORCHETE_DER>
-		{System.out.println(tablaDeSimbolos);}
 	}catch(ParseException e){
 		System.out.println(e.toString());
 	}
@@ -194,10 +214,7 @@ Valor operacion_matematica():{
     resultado = operaciones(operando1)
     (resultado = operaciones(resultado))*
 
-    {
-    System.out.println("operacion");
-    return resultado;
-    }
+    {return resultado;}
 
 }
 Valor operaciones(Valor operando1):{

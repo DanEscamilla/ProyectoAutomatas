@@ -8,6 +8,7 @@ import tiposDeDatos.Valor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 class Analizador implements AnalizadorConstants {
 
@@ -15,18 +16,30 @@ class Analizador implements AnalizadorConstants {
 
         public static void main(String[] args) throws ParseException, FileNotFoundException
         {
-
             tablaDeSimbolos = new TablaDeSimbolos();
 
-                try
-                {
-                        Analizador analizador=new Analizador(new FileInputStream("src/parser/prueba.txt"));
-                        analizador.programa();
-                }
-                catch(ParseException e)
-                {
-                        System.out.println(e.getMessage());
-                }
+
+            InputStream fis;
+
+            if (args.length > 0){
+                fis = System.in;
+            } else {
+                fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
+            }
+
+            try
+            {
+
+                Analizador analizador=new Analizador(fis);
+                analizador.programa();
+
+                System.out.println("Variables y sus valores\u005cn");
+                System.out.println(tablaDeSimbolos);
+            }
+            catch(ParseException e)
+            {
+                    System.out.println(e.getMessage());
+            }
         }
 
   static final public void programa() throws ParseException {
@@ -51,7 +64,6 @@ class Analizador implements AnalizadorConstants {
         expresion();
       }
       jj_consume_token(CORCHETE_DER);
-                 System.out.println(tablaDeSimbolos);
     } catch (ParseException e) {
                 System.out.println(e.toString());
     }
@@ -132,7 +144,7 @@ class Analizador implements AnalizadorConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LITERAL_ENTERA:
       literalToken = jj_consume_token(LITERAL_ENTERA);
-         valorDeLiteral = new Valor(literalToken.image, TiposDeDatos.getTipoDeDato("INT"));
+         valorDeLiteral = new Valor(literalToken.image,TiposDeDatos.getTipoDeDato("INT"));
       break;
     case LITERAL_BOOLEANA:
       literalToken = jj_consume_token(LITERAL_BOOLEANA);
@@ -199,8 +211,7 @@ class Analizador implements AnalizadorConstants {
       }
       resultado = operaciones(resultado);
     }
-    System.out.println("operacion");
-    {if (true) return resultado;}
+     {if (true) return resultado;}
     throw new Error("Missing return statement in function");
   }
 
@@ -380,69 +391,13 @@ class Analizador implements AnalizadorConstants {
     finally { jj_save(0, xla); }
   }
 
-  static private boolean jj_3R_14() {
-    if (jj_scan_token(IDENTIFICADOR)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_15() {
-    if (jj_scan_token(MAS)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_22() {
-    if (jj_scan_token(LITERAL_DOBLE)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_12() {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_21() {
-    if (jj_scan_token(LITERAL_CADENA)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_11() {
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_10() {
-    if (jj_3R_16()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_20() {
-    if (jj_scan_token(LITERAL_BOOLEANA)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_9() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
   static private boolean jj_3R_19() {
     if (jj_scan_token(LITERAL_ENTERA)) return true;
     return false;
   }
 
-  static private boolean jj_3R_6() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_9()) {
-    jj_scanpos = xsp;
-    if (jj_3R_10()) {
-    jj_scanpos = xsp;
-    if (jj_3R_11()) {
-    jj_scanpos = xsp;
-    if (jj_3R_12()) return true;
-    }
-    }
-    }
+  static private boolean jj_3R_9() {
+    if (jj_3R_15()) return true;
     return false;
   }
 
@@ -462,13 +417,29 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
-  static private boolean jj_3R_17() {
-    if (jj_scan_token(POR)) return true;
+  static private boolean jj_3R_6() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_9()) {
+    jj_scanpos = xsp;
+    if (jj_3R_10()) {
+    jj_scanpos = xsp;
+    if (jj_3R_11()) {
+    jj_scanpos = xsp;
+    if (jj_3R_12()) return true;
+    }
+    }
+    }
     return false;
   }
 
   static private boolean jj_3R_8() {
     if (jj_3R_14()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_17() {
+    if (jj_scan_token(POR)) return true;
     return false;
   }
 
@@ -483,11 +454,6 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
-  static private boolean jj_3R_18() {
-    if (jj_scan_token(ENTRE)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_5() {
     Token xsp;
     xsp = jj_scanpos;
@@ -498,6 +464,11 @@ class Analizador implements AnalizadorConstants {
     return false;
   }
 
+  static private boolean jj_3R_18() {
+    if (jj_scan_token(ENTRE)) return true;
+    return false;
+  }
+
   static private boolean jj_3_1() {
     if (jj_3R_4()) return true;
     return false;
@@ -505,6 +476,46 @@ class Analizador implements AnalizadorConstants {
 
   static private boolean jj_3R_16() {
     if (jj_scan_token(MENOS)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(IDENTIFICADOR)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_22() {
+    if (jj_scan_token(LITERAL_DOBLE)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15() {
+    if (jj_scan_token(MAS)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_21() {
+    if (jj_scan_token(LITERAL_CADENA)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_12() {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_20() {
+    if (jj_scan_token(LITERAL_BOOLEANA)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_11() {
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_10() {
+    if (jj_3R_16()) return true;
     return false;
   }
 

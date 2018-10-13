@@ -1,0 +1,8 @@
+public class clase {
+	
+	public int varInt=  1;
+    public string varString = '1';
+
+    varInt = varInt + varString;
+
+}
