@@ -46,7 +46,12 @@ public class TablaDeSimbolos {
         String str = "";
         for (String key: simbolos.keySet()){
             Variable var = (Variable) simbolos.get(key);
-            String valor = (var.getValor() == null)?"null":var.getValor().toString();
+            String valor;
+            try {
+                valor = var.getValor().toString();
+            }catch (Error e){
+                valor = "null";
+            }
             str += (key + " = " + valor + "\n");
         }
         return str;
