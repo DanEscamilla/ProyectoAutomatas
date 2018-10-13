@@ -36,7 +36,7 @@ public class Valor {
 
     private void validarTipoDeDatos(Valor operando2,String operacion,Token token){
       if (operando2.getTipoDeDato().getEnum() != tipoDeDato.getEnum()){
-        throw new SemanticError(token,"Tipo de dato incompatible, no se puede "+operacion+" "+tipoDeDato+" con "+operando2.getTipoDeDato());
+        throw new SemanticError(token,"Operandos incompatibles, no se puede "+operacion+" "+tipoDeDato+" con "+operando2.getTipoDeDato());
       }
     }
 
