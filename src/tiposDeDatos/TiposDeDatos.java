@@ -1,8 +1,7 @@
 package tiposDeDatos;
 
 import java.util.Map;
-
-import static java.util.Map.entry;
+import java.util.HashMap;
 
 public enum TiposDeDatos {
     BOOLEAN,
@@ -10,12 +9,14 @@ public enum TiposDeDatos {
     DOUBLE,
     STRING;
 
-    private static final Map<TiposDeDatos, TipoDeDato> mapaDeTipoDeDatos = Map.ofEntries(
-            entry(BOOLEAN,new Booleano()),
-            entry(DOUBLE,new Doble()),
-            entry(STRING,new Cadena()),
-            entry(INT, new Entero())
-    );
+    private static final Map<TiposDeDatos, TipoDeDato> mapaDeTipoDeDatos;
+    static {
+      mapaDeTipoDeDatos = new HashMap<TiposDeDatos,TipoDeDato>();
+      mapaDeTipoDeDatos.put(BOOLEAN,new Booleano());
+      mapaDeTipoDeDatos.put(DOUBLE,new Doble());
+      mapaDeTipoDeDatos.put(STRING,new Cadena());
+      mapaDeTipoDeDatos.put(INT, new Entero());
+    };
 
     public static TipoDeDato getTipoDeDato(String tipoDeDatoString){
         return mapaDeTipoDeDatos.get(getEnumerator(tipoDeDatoString));
