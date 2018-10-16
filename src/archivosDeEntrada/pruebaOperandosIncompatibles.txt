@@ -1,8 +1,8 @@
 public class clase {
 	
 	public int varInt=  1;
-    public string varString = '1';
+    public boolean varBoolean= true;
 
-    varInt = varInt + varString;
+    varInt = varInt + varBoolean;
 
 }

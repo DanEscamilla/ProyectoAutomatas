@@ -26,6 +26,10 @@ class Analizador implements AnalizadorConstants {
                 fis = System.in;
             } else {
                 fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaAsignacionIncompatible.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaDeclaracionDuplicada.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaVariableNoDeclarada.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaOperandosIncompatibles.txt");
             }
 
             try
@@ -34,8 +38,8 @@ class Analizador implements AnalizadorConstants {
                 Analizador analizador=new Analizador(fis);
                 analizador.programa();
 
-                System.out.println("Variables y sus valores\u005cn");
-                System.out.println(tablaDeSimbolos);
+                System.out.println("Tabla de simbolos");
+                tablaDeSimbolos.print();
             }
             catch(ParseException e)
             {

@@ -42,19 +42,23 @@ public class TablaDeSimbolos {
         }
     }
 
-    public String toString(){
-        String str = "";
+    public void print(){
+        String format = "%-10s %-25s %-15s %s\n";
+        System.out.printf(format,"Tipo","Posicion","Nombre","Valor");
+        System.out.println();
+
         for (String key: simbolos.keySet()){
             Variable var = (Variable) simbolos.get(key);
+            String tipoDeDato = var.getTipoDeDato().toString();
+            String posicion = "linea "+var.getToken().beginLine + ", Columna "+var.getToken().beginColumn;
             String valor;
             try {
                 valor = var.getValor().toString();
             }catch (Error e){
                 valor = "null";
             }
-            str += (key + " = " + valor + "\n");
+            System.out.printf(format,tipoDeDato,posicion,key,valor);
         }
-        return str;
     }
     
 }

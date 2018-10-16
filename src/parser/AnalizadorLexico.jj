@@ -34,8 +34,8 @@ class Analizador
                 Analizador analizador=new Analizador(fis);
                 analizador.programa();
 
-                System.out.println("Variables y sus valores\u005cn");
-                System.out.println(tablaDeSimbolos);
+                System.out.println("Tabla de simbolos");
+                tablaDeSimbolos.print();
             }
             catch(ParseException e)
             {
