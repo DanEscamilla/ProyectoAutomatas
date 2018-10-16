@@ -1,9 +1,9 @@
 public class clase {
 	
 	public string varString = 'adios';
-	public int varInt = 2;
+	private int varInt = 2;
 	public double varDouble = 2.5;
-	public boolean varBoolean = true;
+	private boolean varBoolean = true;
 
     varString = "hola " + varString;
     varInt = 2 * 5;

@@ -43,13 +43,14 @@ public class TablaDeSimbolos {
     }
 
     public void print(){
-        String format = "%-10s %-25s %-15s %s\n";
-        System.out.printf(format,"Tipo","Posicion","Nombre","Valor");
+        String format = "%-10s %-10s %-25s %-15s %s\n";
+        System.out.printf(format,"Alcance","Tipo","Posicion","Nombre","Valor");
         System.out.println();
 
         for (String key: simbolos.keySet()){
             Variable var = (Variable) simbolos.get(key);
             String tipoDeDato = var.getTipoDeDato().toString();
+            String alcance = var.getAlcance().toString();
             String posicion = "linea "+var.getToken().beginLine + ", Columna "+var.getToken().beginColumn;
             String valor;
             try {
@@ -57,7 +58,7 @@ public class TablaDeSimbolos {
             }catch (Error e){
                 valor = "null";
             }
-            System.out.printf(format,tipoDeDato,posicion,key,valor);
+            System.out.printf(format,alcance,tipoDeDato,posicion,key,valor);
         }
     }
     

@@ -10,9 +10,11 @@ public abstract class Identificador {
     private Token token;
     private TiposDeDatos tipoDeDatos;
     private TipoDeDato tipoDeDato;
+    private Token tokenAlcance;
 
-    public Identificador(Token token, Token tipoDeDato){
+    public Identificador(Token token, Token tipoDeDato, Token tokenAlcance){
         this.token = token;
+        this.tokenAlcance = tokenAlcance;
         this.tipoDeDatos = TiposDeDatos.getEnumerator(tipoDeDato.image);
         this.tipoDeDato = TiposDeDatos.getTipoDeDato(this.getTipoDeDatoEnum());
     }
@@ -40,5 +42,13 @@ public abstract class Identificador {
 
     public void setTipoDeDato(TipoDeDato tipoDeDato) {
         this.tipoDeDato = tipoDeDato;
+    }
+
+    public Token getAlcance() {
+        return tokenAlcance;
+    }
+
+    public void setAlcance(Token alcance) {
+        this.tokenAlcance = alcance;
     }
 }

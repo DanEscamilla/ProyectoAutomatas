@@ -8,8 +8,8 @@ public class Variable extends Identificador{
     private Valor valor;
     private Token aparicionMasReciente;
 
-    public Variable(Token token, Token tipoDeDato) {
-        super(token,tipoDeDato);
+    public Variable(Token token, Token tipoDeDato,Token tokenAlcance) {
+        super(token,tipoDeDato,tokenAlcance);
         this.setAparicionMasReciente(token);
     }
 

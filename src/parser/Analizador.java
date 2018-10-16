@@ -8,8 +8,9 @@ import tiposDeDatos.Valor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.IOException;
+
 
 class Analizador implements AnalizadorConstants {
 
@@ -28,8 +29,8 @@ class Analizador implements AnalizadorConstants {
                 fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
 //                fis = new FileInputStream("src/archivosDeEntrada/pruebaAsignacionIncompatible.txt");
 //                fis = new FileInputStream("src/archivosDeEntrada/pruebaDeclaracionDuplicada.txt");
-//                fis = new FileInputStream("src/archivosDeEntrada/pruebaVariableNoDeclarada.txt");
 //                fis = new FileInputStream("src/archivosDeEntrada/pruebaOperandosIncompatibles.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaVariableNoDeclarada.txt");
             }
 
             try
@@ -78,11 +79,12 @@ class Analizador implements AnalizadorConstants {
   static final public void declaracion_de_variable() throws ParseException {
     Token token = null;
     Token tokenTipoDatos = null;
+    Token tokenAlcance = null;
     Variable variable = null;
-    jj_consume_token(MODIFICADOR);
+    tokenAlcance = jj_consume_token(MODIFICADOR);
     tokenTipoDatos = jj_consume_token(TIPO);
     token = jj_consume_token(IDENTIFICADOR);
-        variable = new Variable(token,tokenTipoDatos);
+        variable = new Variable(token,tokenTipoDatos,tokenAlcance);
             tablaDeSimbolos.agregarIdentificador(variable);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ASIGNACION:
@@ -396,55 +398,13 @@ class Analizador implements AnalizadorConstants {
     finally { jj_save(0, xla); }
   }
 
-  static private boolean jj_3R_19() {
-    if (jj_scan_token(LITERAL_ENTERA)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_9() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_13() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_19()) {
-    jj_scanpos = xsp;
-    if (jj_3R_20()) {
-    jj_scanpos = xsp;
-    if (jj_3R_21()) {
-    jj_scanpos = xsp;
-    if (jj_3R_22()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_6() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_9()) {
-    jj_scanpos = xsp;
-    if (jj_3R_10()) {
-    jj_scanpos = xsp;
-    if (jj_3R_11()) {
-    jj_scanpos = xsp;
-    if (jj_3R_12()) return true;
-    }
-    }
-    }
+  static private boolean jj_3R_17() {
+    if (jj_scan_token(POR)) return true;
     return false;
   }
 
   static private boolean jj_3R_8() {
     if (jj_3R_14()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_17() {
-    if (jj_scan_token(POR)) return true;
     return false;
   }
 
@@ -521,6 +481,48 @@ class Analizador implements AnalizadorConstants {
 
   static private boolean jj_3R_10() {
     if (jj_3R_16()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_19() {
+    if (jj_scan_token(LITERAL_ENTERA)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_9() {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_13() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_19()) {
+    jj_scanpos = xsp;
+    if (jj_3R_20()) {
+    jj_scanpos = xsp;
+    if (jj_3R_21()) {
+    jj_scanpos = xsp;
+    if (jj_3R_22()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_6() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_9()) {
+    jj_scanpos = xsp;
+    if (jj_3R_10()) {
+    jj_scanpos = xsp;
+    if (jj_3R_11()) {
+    jj_scanpos = xsp;
+    if (jj_3R_12()) return true;
+    }
+    }
+    }
     return false;
   }
 

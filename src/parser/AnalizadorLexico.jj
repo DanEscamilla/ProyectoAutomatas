@@ -9,23 +9,29 @@ import tiposDeDatos.Valor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.IOException;
+
 
 class Analizador
 {
 
     public static TablaDeSimbolos tablaDeSimbolos;
 
-	public static void main(String[] args) throws ParseException, FileNotFoundException
+	public static void main(String[] args) throws ParseException, FileNotFoundException, IOException
 	{
             tablaDeSimbolos = new TablaDeSimbolos();
 
 
             InputStream fis;
 
-            if (args.length > 0){
+            if (System.in.available() > 0){
                 fis = System.in;
             } else {
                 fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaAsignacionIncompatible.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaDeclaracionDuplicada.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaOperandosIncompatibles.txt");
+//                fis = new FileInputStream("src/archivosDeEntrada/pruebaVariableNoDeclarada.txt");
             }
 
             try
@@ -114,14 +120,15 @@ void programa():{}{
 void declaracion_de_variable():{
     Token token = null;
     Token tokenTipoDatos = null;
+    Token tokenAlcance = null;
     Variable variable = null;
 
 }{
-	<MODIFICADOR>
+	tokenAlcance = <MODIFICADOR>
 	tokenTipoDatos  = <TIPO>
 	token           = <IDENTIFICADOR>
     {
-        variable = new Variable(token,tokenTipoDatos);
+        variable = new Variable(token,tokenTipoDatos,tokenAlcance);
 	    tablaDeSimbolos.agregarIdentificador(variable);
 	}
 	[asignacion(variable)]
