@@ -1,6 +1,6 @@
 public class clase {
 	
-	public string varString = 'adios';
+	public string varString = "adios";
 	private int varInt = 2;
 	public double varDouble = 2.5;
 	private boolean varBoolean = true;
@@ -11,4 +11,7 @@ public class clase {
     varBoolean = false;
 
 	public int var_cuatro;
+
+	varRodrigo = "asda";
+
 }

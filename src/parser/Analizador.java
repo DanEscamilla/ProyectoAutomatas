@@ -16,7 +16,7 @@ class Analizador implements AnalizadorConstants {
 
     public static TablaDeSimbolos tablaDeSimbolos;
 
-        public static void main(String[] args) throws ParseException, FileNotFoundException, IOException
+        public static void main(String[] args) throws ParseException, FileNotFoundException, IOException, InterruptedException
         {
             tablaDeSimbolos = new TablaDeSimbolos();
 
@@ -27,25 +27,24 @@ class Analizador implements AnalizadorConstants {
                 fis = System.in;
             } else {
                 fis = new FileInputStream("src/archivosDeEntrada/pruebaExito.txt");
-//                fis = new FileInputStream("src/archivosDeEntrada/pruebaAsignacionIncompatible.txt");
-//                fis = new FileInputStream("src/archivosDeEntrada/pruebaDeclaracionDuplicada.txt");
-//                fis = new FileInputStream("src/archivosDeEntrada/pruebaOperandosIncompatibles.txt");
-//                fis = new FileInputStream("src/archivosDeEntrada/pruebaVariableNoDeclarada.txt");
             }
 
             try
             {
-
                 Analizador analizador=new Analizador(fis);
                 analizador.programa();
-
-                System.out.println("Tabla de simbolos");
-                tablaDeSimbolos.print();
             }
             catch(ParseException e)
             {
-                    System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
+            catch(Error e)
+            {
+              e.printStackTrace();
+              Thread.sleep(100);
+            }
+            System.out.println("\u005cnTabla de simbolos");
+            tablaDeSimbolos.print();
         }
 
   static final public void programa() throws ParseException {
@@ -398,13 +397,45 @@ class Analizador implements AnalizadorConstants {
     finally { jj_save(0, xla); }
   }
 
-  static private boolean jj_3R_17() {
-    if (jj_scan_token(POR)) return true;
+  static private boolean jj_3R_13() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_19()) {
+    jj_scanpos = xsp;
+    if (jj_3R_20()) {
+    jj_scanpos = xsp;
+    if (jj_3R_21()) {
+    jj_scanpos = xsp;
+    if (jj_3R_22()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_6() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_9()) {
+    jj_scanpos = xsp;
+    if (jj_3R_10()) {
+    jj_scanpos = xsp;
+    if (jj_3R_11()) {
+    jj_scanpos = xsp;
+    if (jj_3R_12()) return true;
+    }
+    }
+    }
     return false;
   }
 
   static private boolean jj_3R_8() {
     if (jj_3R_14()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_17() {
+    if (jj_scan_token(POR)) return true;
     return false;
   }
 
@@ -491,38 +522,6 @@ class Analizador implements AnalizadorConstants {
 
   static private boolean jj_3R_9() {
     if (jj_3R_15()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_13() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_19()) {
-    jj_scanpos = xsp;
-    if (jj_3R_20()) {
-    jj_scanpos = xsp;
-    if (jj_3R_21()) {
-    jj_scanpos = xsp;
-    if (jj_3R_22()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_6() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_9()) {
-    jj_scanpos = xsp;
-    if (jj_3R_10()) {
-    jj_scanpos = xsp;
-    if (jj_3R_11()) {
-    jj_scanpos = xsp;
-    if (jj_3R_12()) return true;
-    }
-    }
-    }
     return false;
   }
 
