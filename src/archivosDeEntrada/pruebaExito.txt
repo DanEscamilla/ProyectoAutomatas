@@ -12,6 +12,4 @@ public class clase {
 
 	public int var_cuatro;
 
-	varRodrigo = "asda";
-
 }

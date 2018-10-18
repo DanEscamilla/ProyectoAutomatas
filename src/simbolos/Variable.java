@@ -15,7 +15,7 @@ public class Variable extends Identificador{
 
     public Valor getValor() {
         if (valor==null){
-            throw new SemanticError(this.getToken(),"La variable "+this.getToken().image+" no ha sido inicializada");
+            throw new SemanticError(this.getAparicionMasReciente(),"La variable "+this.getToken().image+" no ha sido inicializada");
         }
         return valor;
     }
@@ -24,7 +24,7 @@ public class Variable extends Identificador{
         if (valor.getTipoDeDato().getEnum() == this.getTipoDeDatoEnum()){
             this.valor = valor;
         } else {
-          throw new SemanticError(this.getToken(),"Tipo de dato incompatible, variable es de tipo "+this.getTipoDeDato()+" y se le esta tratando de asignar un valor "+valor.getTipoDeDato());
+          throw new SemanticError(this.getAparicionMasReciente(),"Tipo de dato incompatible, variable es de tipo "+this.getTipoDeDato()+" y se le esta tratando de asignar un valor "+valor.getTipoDeDato());
         }
 
     }
