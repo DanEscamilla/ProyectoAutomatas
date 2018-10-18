@@ -1,4 +1,5 @@
 package simbolos;
+import errores.ManejadorErrores;
 import errores.SemanticError;
 import parser.Token;
 import tiposDeDatos.Valor;
@@ -15,16 +16,18 @@ public class Variable extends Identificador{
 
     public Valor getValor() {
         if (valor==null){
-            throw new SemanticError(this.getToken(),"La variable "+this.getToken().image+" no ha sido inicializada");
+            ManejadorErrores.agregarError(new SemanticError(this.getToken(),"La variable "+this.getToken().image+" no ha sido inicializada"));
+            return Valor.generarErrorValor();
+        } else {
+            return valor;
         }
-        return valor;
     }
 
     public void setValor(Valor valor) {
         if (valor.getTipoDeDato().getEnum() == this.getTipoDeDatoEnum()){
             this.valor = valor;
         } else {
-          throw new SemanticError(this.getToken(),"Tipo de dato incompatible, variable es de tipo "+this.getTipoDeDato()+" y se le esta tratando de asignar un valor "+valor.getTipoDeDato());
+            ManejadorErrores.agregarError(new SemanticError(this.getAparicionMasReciente(),"Tipo de dato incompatible, variable es de tipo "+this.getTipoDeDato()+" y se le esta tratando de asignar un valor "+valor.getTipoDeDato()));
         }
 
     }

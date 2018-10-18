@@ -1,5 +1,6 @@
 package simbolos;
 
+import errores.ManejadorErrores;
 import errores.SemanticError;
 import parser.Token;
 
@@ -14,10 +15,11 @@ public class TablaDeSimbolos {
             simbolos.put(identificador.getToken().image, identificador);
         } else {
             String reason = "La variable \""+identificador.getToken().image+"\" ya esta declarada";
-            throw new SemanticError(
+            ManejadorErrores.agregarError( new SemanticError(
                     identificador.getToken().beginLine,
                     identificador.getToken().beginColumn,
-                    reason);
+                    reason)
+            );
         }
     }
 
@@ -26,10 +28,13 @@ public class TablaDeSimbolos {
             return obtenerIdentificador(token.image);
         } catch (Error e){
             String reason = "La variable \""+token.image+"\" no existe";
-            throw new SemanticError(
+            ManejadorErrores.agregarError( new SemanticError(
                     token.beginLine,
                     token.beginColumn,
-                    reason);
+                    reason)
+            );
+            Variable inexistente = new Variable(token,new Token(0,"Error"),new Token(0,"Error"));
+            return inexistente;
         }
 
     }
@@ -61,5 +66,5 @@ public class TablaDeSimbolos {
             System.out.printf(format,alcance,tipoDeDato,posicion,key,valor);
         }
     }
-    
+
 }

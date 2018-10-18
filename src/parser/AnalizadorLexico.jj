@@ -1,6 +1,7 @@
 PARSER_BEGIN(Analizador)
 package  parser;
 
+import errores.ManejadorErrores;
 import simbolos.TablaDeSimbolos;
 import simbolos.Variable;
 import tiposDeDatos.TiposDeDatos;
@@ -12,14 +13,13 @@ import java.io.InputStream;
 import java.io.IOException;
 
 
-class Analizador{
+class Analizador {
 
     public static TablaDeSimbolos tablaDeSimbolos;
 
         public static void main(String[] args) throws ParseException, FileNotFoundException, IOException, InterruptedException
         {
             tablaDeSimbolos = new TablaDeSimbolos();
-
 
             InputStream fis;
 
@@ -36,14 +36,19 @@ class Analizador{
             }
             catch(ParseException e)
             {
-                System.out.println(e.getMessage());
+              e.printStackTrace();
             }
             catch(Error e)
             {
               e.printStackTrace();
-              Thread.sleep(100);
             }
-            System.out.println("\nTabla de simbolos");
+
+//            ManejadorErrores.printSoloSemanticErrors();
+            ManejadorErrores.print();
+
+            Thread.sleep(100);
+
+            System.out.println("\u005cnTabla de simbolos");
             tablaDeSimbolos.print();
         }
 
@@ -126,8 +131,15 @@ void declaracion_de_variable():{
 	tokenTipoDatos  = <TIPO>
 	token           = <IDENTIFICADOR>
     {
-        variable = new Variable(token,tokenTipoDatos,tokenAlcance);
-	    tablaDeSimbolos.agregarIdentificador(variable);
+
+        try {
+            variable = new Variable(token,tokenTipoDatos,tokenAlcance);
+            tablaDeSimbolos.agregarIdentificador(variable);
+        } catch (Exception exception){
+            ManejadorErrores.agregarException(exception);
+        } catch (Error e){
+            ManejadorErrores.agregarError(e);
+        }
 	}
 	[asignacion(variable)]
 }
@@ -234,7 +246,9 @@ Valor operaciones(Valor operando1):{
         |
         resultado = division(operando1)
     )
-    {return resultado;}
+    {
+        return resultado;
+    }
 }
 Valor suma(Valor operando1):{
     Valor operando2;

@@ -6,9 +6,9 @@ public class clase {
 	private boolean varBoolean = true;
 
     varString = "hola " + varString;
-    varInt = 2 * 5;
+    varInt = 2 * "5";
     varDouble = 6.6 - varDouble;
-    varBoolean = false;
+    varBoolean = false + varRodrigo;
 
 	public int var_cuatro;
 

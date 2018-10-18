@@ -7,6 +7,7 @@ public enum TiposDeDatos {
     BOOLEAN,
     INT,
     DOUBLE,
+    ERROR,
     STRING;
 
     private static final Map<TiposDeDatos, TipoDeDato> mapaDeTipoDeDatos;
@@ -16,6 +17,7 @@ public enum TiposDeDatos {
       mapaDeTipoDeDatos.put(DOUBLE,new Doble());
       mapaDeTipoDeDatos.put(STRING,new Cadena());
       mapaDeTipoDeDatos.put(INT, new Entero());
+      mapaDeTipoDeDatos.put(ERROR, new DatoError());
     };
 
     public static TipoDeDato getTipoDeDato(String tipoDeDatoString){
