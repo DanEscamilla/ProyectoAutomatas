@@ -16,8 +16,8 @@ public class Variable extends Identificador{
 
     public Valor getValor() {
         if (valor==null){
-            ManejadorErrores.agregarError(new SemanticError(this.getToken(),"La variable "+this.getToken().image+" no ha sido inicializada"));
-            return Valor.generarErrorValor();
+            ManejadorErrores.agregarError(new SemanticError(this.getAparicionMasReciente(),"La variable "+this.getToken().image+" no ha sido inicializada"));
+            return Valor.generarErrorValor("null");
         } else {
             return valor;
         }
