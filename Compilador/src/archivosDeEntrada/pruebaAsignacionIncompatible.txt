@@ -1,5 +1,0 @@
-public class clase {
-	
-	public string varString= 2;
-
-}

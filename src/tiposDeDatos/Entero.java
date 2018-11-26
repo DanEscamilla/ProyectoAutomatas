@@ -1,6 +1,7 @@
 package tiposDeDatos;
 
 import errores.SemanticError;
+import operadores.Operador;
 
 public class Entero implements TipoDeDato<Integer> {
 
@@ -15,28 +16,13 @@ public class Entero implements TipoDeDato<Integer> {
     }
 
     @Override
+    public Integer operar(Operador op, Object op1, Object op2) throws Exception  {
+        return op.operar((Integer) op1,(Integer)op2);
+    }
+
+    @Override
     public TiposDeDatos getEnum() {
         return TiposDeDatos.INT;
-    }
-
-    @Override
-    public Integer suma(Object operando1, Object operando2) {
-        return (Integer)operando1 + (Integer)operando2;
-    }
-
-    @Override
-    public Integer resta(Object operando1, Object operando2) {
-        return (Integer)operando1 - (Integer)operando2;
-    }
-
-    @Override
-    public Integer multiplicacion(Object operando1, Object operando2) {
-        return (Integer)operando1 * (Integer)operando2;
-    }
-
-    @Override
-    public Integer division(Object operando1, Object operando2) {
-        return (Integer)operando1 / (Integer)operando2;
     }
 
     @Override

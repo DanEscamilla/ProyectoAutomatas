@@ -1,8 +1,0 @@
-public class clase {
-	
-	public int varInt=  1;
-    public boolean varBoolean= true;
-
-    varInt = varInt + varBoolean;
-
-}

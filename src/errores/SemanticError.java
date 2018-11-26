@@ -1,6 +1,6 @@
 package errores;/* JavaCCOptions: */
 
-import parser.Token;
+import analizadorSintactico.Token;
 
 /** Token Manager Error. */
 public class SemanticError extends Error
@@ -123,6 +123,6 @@ public class SemanticError extends Error
         this(GenerarMensajaDeError(errorLine, errorColumn,reason));
     }
     public SemanticError(Token token, String reason){
-      this(GenerarMensajaDeError(token.beginLine,token.beginColumn,reason));
+        this(GenerarMensajaDeError(token.beginLine,token.beginColumn,reason));
     }
 }

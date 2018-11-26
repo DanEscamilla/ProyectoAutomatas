@@ -1,19 +1,14 @@
 package tiposDeDatos;
 
 
+import operadores.Operador;
+
 public interface TipoDeDato <T>{
 
+    T parseDato(String stringDato);
 
-    public T parseDato(String stringDato);
+    T operar(Operador op,Object op1, Object op2) throws Exception ;
 
-    public TiposDeDatos getEnum();
-
-    public T suma(Object operando1,Object operando2);
-
-    public T resta(Object operando1,Object operando2);
-
-    public T multiplicacion(Object operando1,Object operando2);
-
-    public T division(Object operando1,Object operando2);
+    TiposDeDatos getEnum();
 
 }
