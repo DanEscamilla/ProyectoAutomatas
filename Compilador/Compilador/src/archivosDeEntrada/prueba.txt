@@ -1,0 +1,5 @@
+public class clase {
+
+	public int varString = (( 5 * 3 ) - 14) * (5 - 4) + ( 15 / 15 ) -1;
+
+}

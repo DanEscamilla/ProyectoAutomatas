@@ -1,6 +1,7 @@
 package tiposDeDatos;
 
 import errores.SemanticError;
+import operadores.Operador;
 
 public class Booleano implements TipoDeDato<Boolean> {
 
@@ -15,29 +16,16 @@ public class Booleano implements TipoDeDato<Boolean> {
     }
 
     @Override
+    public Boolean operar(Operador op, Object op1, Object op2) throws Exception {
+        return op.operar((Boolean)op1,(Boolean)op2);
+    }
+
+    @Override
     public TiposDeDatos getEnum() {
         return TiposDeDatos.BOOLEAN;
     }
 
-    @Override
-    public Boolean suma(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite sumar valores Booleanos");
-    }
 
-    @Override
-    public Boolean resta(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite restar valores Booleanos");
-    }
-
-    @Override
-    public Boolean multiplicacion(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite multiplicar valores Booleanos");
-    }
-
-    @Override
-    public Boolean division(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite dividir valores Booleanos");
-    }
 
     @Override
     public String toString() {

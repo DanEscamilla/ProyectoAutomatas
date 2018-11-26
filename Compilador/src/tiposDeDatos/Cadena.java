@@ -1,6 +1,7 @@
 package tiposDeDatos;
 
-import errores.SemanticError;
+
+import operadores.Operador;
 
 public class Cadena implements TipoDeDato<String> {
 
@@ -10,30 +11,17 @@ public class Cadena implements TipoDeDato<String> {
         return stringDato.replaceAll(regexParaRemoverComillas,"");
     }
 
+
+    @Override
+    public String operar(Operador op, Object op1, Object op2) throws Exception {
+        return op.operar((String) op1,(String) op2);
+    }
+
     @Override
     public TiposDeDatos getEnum() {
         return TiposDeDatos.STRING;
     }
 
-    @Override
-    public String suma(Object operando1, Object operando2) {
-        return (String)operando1 + (String)operando2;
-    }
-
-    @Override
-    public String resta(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite restar cadenas");
-    }
-
-    @Override
-    public String multiplicacion(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite multiplicar cadenas");
-    }
-
-    @Override
-    public String division(Object operando1, Object operando2) {
-        throw new SemanticError("No se permite divir cadenas");
-    }
 
     @Override
     public String toString() {
