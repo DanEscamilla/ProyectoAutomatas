@@ -1,7 +1,9 @@
 package simbolos;
 
+import analizadorSintactico.CustomToken;
+import errores.ManejadorErrores;
 import errores.SemanticError;
-import parser.Token;
+import tiposDeDatos.TipoError;
 
 import java.util.HashMap;
 
@@ -14,27 +16,31 @@ public class TablaDeSimbolos {
             simbolos.put(identificador.getToken().image, identificador);
         } else {
             String reason = "La variable \""+identificador.getToken().image+"\" ya esta declarada";
-            throw new SemanticError(
+            ManejadorErrores.agregarError( new SemanticError(
                     identificador.getToken().beginLine,
                     identificador.getToken().beginColumn,
-                    reason);
+                    reason)
+            );
         }
     }
 
-    public Identificador obtenerIdentificador(Token token){
+    public Identificador obtenerIdentificador(CustomToken token){
         try {
             return obtenerIdentificador(token.image);
         } catch (Error e){
             String reason = "La variable \""+token.image+"\" no existe";
-            throw new SemanticError(
+            ManejadorErrores.agregarError( new SemanticError(
                     token.beginLine,
                     token.beginColumn,
-                    reason);
+                    reason)
+            );
+            Variable error = new Variable(token,"error","error",new TipoError());
+            return error;
         }
 
     }
 
-    public Identificador obtenerIdentificador(String image) throws Error{
+    private Identificador obtenerIdentificador(String image) throws Error{
         if (simbolos.containsKey(image)){
             return simbolos.get(image);
         } else {
@@ -50,12 +56,12 @@ public class TablaDeSimbolos {
         for (String key: simbolos.keySet()){
             Variable var = (Variable) simbolos.get(key);
             String tipoDeDato = var.getTipoDeDato().toString();
-            String alcance = var.getAlcance().toString();
+            String alcance = var.getAlcance();
             String posicion = "linea "+var.getToken().beginLine + ", Columna "+var.getToken().beginColumn;
             String valor;
             try {
-                valor = var.getValor().toString();
-            }catch (Error e){
+                valor = var.getDato().toString();
+            }catch (NullPointerException e){
                 valor = "null";
             }
             System.out.printf(format,alcance,tipoDeDato,posicion,key,valor);

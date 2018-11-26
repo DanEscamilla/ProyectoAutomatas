@@ -1,54 +1,32 @@
 package simbolos;
 
+import analizadorSintactico.CustomToken;
 import tiposDeDatos.TipoDeDato;
-import tiposDeDatos.TiposDeDatos;
-import parser.Token;
+import analizadorSintactico.Token;
 
 
-public abstract class Identificador {
+public abstract class Identificador extends Valor{
 
-    private Token token;
-    private TiposDeDatos tipoDeDatos;
-    private TipoDeDato tipoDeDato;
-    private Token tokenAlcance;
+    private String nombre;
+    private String alcance;
+    private CustomToken token;
 
-    public Identificador(Token token, Token tipoDeDato, Token tokenAlcance){
+    public Identificador(CustomToken token, String nombre, String alcance, Object dato, TipoDeDato tipoDeDato) {
+        super(token, dato, tipoDeDato);
+        this.nombre = nombre;
         this.token = token;
-        this.tokenAlcance = tokenAlcance;
-        this.tipoDeDatos = TiposDeDatos.getEnumerator(tipoDeDato.image);
-        this.tipoDeDato = TiposDeDatos.getTipoDeDato(this.getTipoDeDatoEnum());
+        this.alcance = alcance;
     }
 
-    public Token getToken() {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getAlcance() {
+        return alcance;
+    }
+
+    public CustomToken getToken() {
         return token;
-    }
-
-    public void setToken(Token token) {
-        this.token = token;
-    }
-
-    public TiposDeDatos getTipoDeDatoEnum() {
-        return tipoDeDatos;
-    }
-
-    public void setTipoDeDatoEnum(TiposDeDatos tipoDeDatos) {
-        this.tipoDeDatos = tipoDeDatos;
-    }
-
-
-    public TipoDeDato getTipoDeDato() {
-        return tipoDeDato;
-    }
-
-    public void setTipoDeDato(TipoDeDato tipoDeDato) {
-        this.tipoDeDato = tipoDeDato;
-    }
-
-    public Token getAlcance() {
-        return tokenAlcance;
-    }
-
-    public void setAlcance(Token alcance) {
-        this.tokenAlcance = alcance;
     }
 }
