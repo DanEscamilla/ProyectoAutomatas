@@ -48,25 +48,25 @@ public abstract class OperadorCA implements  Operador {
     }
 
     @Override
-    public Integer operar(Integer op1, Integer op2) throws Exception{
+    public Object operar(Integer op1, Integer op2) throws Exception{
         errorOperacion("Entero");
         return null;
     }
 
     @Override
-    public Boolean operar(Boolean op1, Boolean op2) throws Exception {
+    public Object operar(Boolean op1, Boolean op2) throws Exception {
         errorOperacion("Booleano");
         return null;
     }
 
     @Override
-    public String operar(String op1, String op2) throws Exception {
+    public Object operar(String op1, String op2) throws Exception {
         errorOperacion("Cadena");
         return null;
     }
 
     @Override
-    public Double operar(Double op1, Double op2) throws Exception {
+    public Object operar(Double op1, Double op2) throws Exception {
         errorOperacion("Doble");
         return null;
     }

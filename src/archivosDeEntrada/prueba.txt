@@ -6,4 +6,11 @@ public class clase {
   public int var3 = var2 * var2;
   var2 = var3 + 1;
 
+  public boolean varBool = true;
+  varBool = !varBool;
+  varBool = varBool || true;
+  varBool = varBool && false;
+  varBool = varBool == varBool;
+  varBool = varBool != varBool;
+
 }

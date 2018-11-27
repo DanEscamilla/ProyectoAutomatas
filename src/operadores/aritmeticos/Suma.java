@@ -1,8 +1,9 @@
-package operadores;
+package operadores.aritmeticos;
 
 //import operadores.Operador;
 //import tiposDeDatos.Valor;
 
+import operadores.OperadorCA;
 import simbolos.Valor;
 import tiposDeDatos.TipoDeDato;
 

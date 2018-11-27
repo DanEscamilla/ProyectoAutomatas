@@ -41,25 +41,25 @@ public abstract class OperadorUnarioCA implements  OperadorUnario {
     }
 
     @Override
-    public Integer operar(Integer op1) throws Exception{
+    public Object operar(Integer op1) throws Exception{
         errorOperacion("Entero");
         return null;
     }
 
     @Override
-    public Boolean operar(Boolean op1) throws Exception {
+    public Object operar(Boolean op1) throws Exception {
         errorOperacion("Booleano");
         return null;
     }
 
     @Override
-    public String operar(String op1) throws Exception {
+    public Object operar(String op1) throws Exception {
         errorOperacion("Cadena");
         return null;
     }
 
     @Override
-    public Double operar(Double op1) throws Exception {
+    public Object operar(Double op1) throws Exception {
         errorOperacion("Doble");
         return null;
     }

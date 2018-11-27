@@ -18,12 +18,12 @@ public class Booleano implements TipoDeDato<Boolean> {
 
     @Override
     public Boolean operar(Operador op, Object op1, Object op2) throws Exception {
-        return op.operar((Boolean)op1,(Boolean)op2);
+        return (Boolean)op.operar((Boolean)op1,(Boolean)op2);
     }
 
     @Override
     public Boolean operar(OperadorUnario op, Object op1) throws Exception {
-        return op.operar((Boolean)op1);
+        return (Boolean)op.operar((Boolean)op1);
     }
 
     @Override

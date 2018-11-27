@@ -1,8 +1,9 @@
-package operadores;
+package operadores.aritmeticos;
 
 //import operadores.Operador;
 //import tiposDeDatos.Valor;
 
+import operadores.OperadorUnarioCA;
 import simbolos.Valor;
 import tiposDeDatos.TipoDeDato;
 
@@ -13,12 +14,12 @@ public class Negacion extends OperadorUnarioCA {
     }
 
     @Override
-    public Integer operar(Integer op1) {
+    public Object operar(Integer op1) {
         return -op1;
     }
 
     @Override
-    public Double operar(Double op1) {
+    public Object operar(Double op1) {
         return -op1;
     }
 

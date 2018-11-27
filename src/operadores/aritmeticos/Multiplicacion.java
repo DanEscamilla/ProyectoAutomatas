@@ -1,7 +1,9 @@
-package operadores;
+package operadores.aritmeticos;
 
 //import operadores.Operador;
 //import tiposDeDatos.Valor;
+
+import operadores.OperadorCA;
 
 public class Multiplicacion extends OperadorCA {
 

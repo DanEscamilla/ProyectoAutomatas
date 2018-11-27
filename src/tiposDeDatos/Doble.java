@@ -18,12 +18,12 @@ public class Doble implements TipoDeDato<Double> {
 
     @Override
     public Double operar(Operador op, Object op1, Object op2) throws Exception  {
-        return op.operar((Double)op1,(Double)op2);
+        return (Double)op.operar((Double)op1,(Double)op2);
     }
 
     @Override
     public Double operar(OperadorUnario op, Object op1) throws Exception {
-        return op.operar((Double)op1);
+        return (Double)op.operar((Double)op1);
     }
 
     @Override
