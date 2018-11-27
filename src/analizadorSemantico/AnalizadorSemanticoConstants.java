@@ -37,23 +37,27 @@ public interface AnalizadorSemanticoConstants {
   /** RegularExpression Id. */
   int PUNTO = 17;
   /** RegularExpression Id. */
-  int OPERADOR = 18;
+  int NEGACION = 18;
   /** RegularExpression Id. */
-  int ASIGNACION = 19;
+  int OPERADOR = 19;
   /** RegularExpression Id. */
-  int OPERADOR_LOGICO = 20;
+  int ASIGNACION = 20;
   /** RegularExpression Id. */
-  int OPERADOR_ARITMETICO = 21;
+  int OPERADOR_LOGICO = 21;
   /** RegularExpression Id. */
-  int LITERAL_ENTERA = 22;
+  int OPERADOR_ARITMETICO = 22;
   /** RegularExpression Id. */
-  int LITERAL_BOOLEANA = 23;
+  int OPERADOR_UNARIO = 23;
   /** RegularExpression Id. */
-  int LITERAL_CADENA = 24;
+  int LITERAL_ENTERA = 24;
   /** RegularExpression Id. */
-  int LITERAL_DOBLE = 25;
+  int LITERAL_BOOLEANA = 25;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 26;
+  int LITERAL_CADENA = 26;
+  /** RegularExpression Id. */
+  int LITERAL_DOBLE = 27;
+  /** RegularExpression Id. */
+  int IDENTIFICADOR = 28;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -78,10 +82,12 @@ public interface AnalizadorSemanticoConstants {
     "\";\"",
     "\",\"",
     "\".\"",
+    "\"-\"",
     "<OPERADOR>",
     "\"=\"",
     "<OPERADOR_LOGICO>",
     "<OPERADOR_ARITMETICO>",
+    "\"!\"",
     "<LITERAL_ENTERA>",
     "<LITERAL_BOOLEANA>",
     "<LITERAL_CADENA>",

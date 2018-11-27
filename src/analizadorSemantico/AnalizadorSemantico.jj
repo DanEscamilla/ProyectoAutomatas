@@ -53,15 +53,19 @@ TOKEN :
 | < PUNTO: ".">
 }
 
-
 /* Operadores */
 TOKEN :
 {
-
-< OPERADOR: <OPERADOR_LOGICO> | <OPERADOR_ARITMETICO> >
+<NEGACION: "-">
+| < OPERADOR: <OPERADOR_LOGICO> | <OPERADOR_ARITMETICO> >
 | < ASIGNACION: "=" >
 | < OPERADOR_LOGICO: ">" | "<" | "==" | "<=" | ">=" | "!=" | "&&" | "||">
-| < OPERADOR_ARITMETICO: "-"|"+"|"*"|"/" >
+| < OPERADOR_ARITMETICO: "+"|"*"|"/" >
+}
+
+TOKEN :
+{
+  <OPERADOR_UNARIO:  "!" >
 }
 
 /* Literales */
@@ -145,7 +149,6 @@ Literal ASM_literal():{
     CustomToken customToken;
 }{
     token = <LITERAL_BOOLEANA>
-
     {
        customToken = new CustomToken(token.image, token.beginLine,token.beginColumn,token.endLine,token.endColumn);
       return new Literal(customToken,(new Booleano()).parseDato(token.image),new Booleano());
@@ -193,7 +196,11 @@ void ASM_expresion_matematica(Expresion expresion):{
 void ASM_operador(Expresion expresion):{
     Token token;
 }{
-    token = <OPERADOR>
+    (
+      token = <NEGACION>
+    |
+      token = <OPERADOR>
+    )
     {expresion.agregarNodo(Operadores.getOperador(token.image));}
 }
 
@@ -206,9 +213,17 @@ void ASM_operando(Expresion expresion):{
       ASM_expresion_matematica(expresion)
       {expresion.aumentarPrecedencia(-100);}
     <PARENTESIS_DER>
-//    |
-//    res = <NEGACION> ASM_operando(expresion)
+   |
+   ASM_operador_unario(expresion) ASM_operando(expresion)
+}
 
+void ASM_operador_unario(Expresion expresion):{}{
+  (
+    token = <OPERADOR_UNARIO>
+    |
+    token = <NEGACION>
+  )
+  {expresion.agregarNodo(Operadores.getOperadorUnario(token.image));}
 }
 
 void ASM_expresion():{}{

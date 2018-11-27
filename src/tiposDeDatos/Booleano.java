@@ -2,6 +2,7 @@ package tiposDeDatos;
 
 import errores.SemanticError;
 import operadores.Operador;
+import operadores.OperadorUnario;
 
 public class Booleano implements TipoDeDato<Boolean> {
 
@@ -18,6 +19,11 @@ public class Booleano implements TipoDeDato<Boolean> {
     @Override
     public Boolean operar(Operador op, Object op1, Object op2) throws Exception {
         return op.operar((Boolean)op1,(Boolean)op2);
+    }
+
+    @Override
+    public Boolean operar(OperadorUnario op, Object op1) throws Exception {
+        return op.operar((Boolean)op1);
     }
 
     @Override

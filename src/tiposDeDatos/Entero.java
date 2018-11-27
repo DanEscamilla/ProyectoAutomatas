@@ -2,6 +2,7 @@ package tiposDeDatos;
 
 import errores.SemanticError;
 import operadores.Operador;
+import operadores.OperadorUnario;
 
 public class Entero implements TipoDeDato<Integer> {
 
@@ -18,6 +19,11 @@ public class Entero implements TipoDeDato<Integer> {
     @Override
     public Integer operar(Operador op, Object op1, Object op2) throws Exception  {
         return op.operar((Integer) op1,(Integer)op2);
+    }
+
+    @Override
+    public Integer operar(OperadorUnario op, Object op1) throws Exception {
+        return op.operar((Integer)op1);
     }
 
     @Override

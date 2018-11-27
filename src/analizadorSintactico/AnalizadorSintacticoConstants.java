@@ -37,25 +37,29 @@ public interface AnalizadorSintacticoConstants {
   /** RegularExpression Id. */
   int PUNTO = 17;
   /** RegularExpression Id. */
-  int OPERADOR = 18;
+  int NEGACION = 18;
   /** RegularExpression Id. */
-  int ASIGNACION = 19;
+  int OPERADOR = 19;
   /** RegularExpression Id. */
-  int OPERADOR_LOGICO = 20;
+  int ASIGNACION = 20;
   /** RegularExpression Id. */
-  int OPERADOR_ARITMETICO = 21;
+  int OPERADOR_LOGICO = 21;
   /** RegularExpression Id. */
-  int LITERAL = 22;
+  int OPERADOR_ARITMETICO = 22;
   /** RegularExpression Id. */
-  int LITERAL_ENTERA = 23;
+  int OPERADOR_UNARIO = 23;
   /** RegularExpression Id. */
-  int LITERAL_BOOLEANA = 24;
+  int LITERAL = 24;
   /** RegularExpression Id. */
-  int LITERAL_CADENA = 25;
+  int LITERAL_ENTERA = 25;
   /** RegularExpression Id. */
-  int LITERAL_DOBLE = 26;
+  int LITERAL_BOOLEANA = 26;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 27;
+  int LITERAL_CADENA = 27;
+  /** RegularExpression Id. */
+  int LITERAL_DOBLE = 28;
+  /** RegularExpression Id. */
+  int IDENTIFICADOR = 29;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -80,10 +84,12 @@ public interface AnalizadorSintacticoConstants {
     "\";\"",
     "\",\"",
     "\".\"",
+    "\"-\"",
     "<OPERADOR>",
     "\"=\"",
     "<OPERADOR_LOGICO>",
     "<OPERADOR_ARITMETICO>",
+    "\"!\"",
     "<LITERAL>",
     "<LITERAL_ENTERA>",
     "<LITERAL_BOOLEANA>",

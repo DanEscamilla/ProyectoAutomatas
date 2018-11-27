@@ -154,6 +154,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case NEGACION:
       case OPERADOR:
         ;
         break;
@@ -168,7 +169,18 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
 
   static final public void ASM_operador(Expresion expresion) throws ParseException {
     Token token;
-    token = jj_consume_token(OPERADOR);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NEGACION:
+      token = jj_consume_token(NEGACION);
+      break;
+    case OPERADOR:
+      token = jj_consume_token(OPERADOR);
+      break;
+    default:
+      jj_la1[5] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
      expresion.agregarNodo(Operadores.getOperador(token.image));
   }
 
@@ -188,11 +200,32 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
        expresion.aumentarPrecedencia(-100);
       jj_consume_token(PARENTESIS_DER);
       break;
+    case NEGACION:
+    case OPERADOR_UNARIO:
+      ASM_operador_unario(expresion);
+      ASM_operando(expresion);
+      break;
     default:
-      jj_la1[5] = jj_gen;
+      jj_la1[6] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+  }
+
+  static final public void ASM_operador_unario(Expresion expresion) throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case OPERADOR_UNARIO:
+      token = jj_consume_token(OPERADOR_UNARIO);
+      break;
+    case NEGACION:
+      token = jj_consume_token(NEGACION);
+      break;
+    default:
+      jj_la1[7] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+   expresion.agregarNodo(Operadores.getOperadorUnario(token.image));
   }
 
   static final public void ASM_expresion() throws ParseException {
@@ -207,7 +240,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
         ASM_declaracion_de_variable();
         break;
       default:
-        jj_la1[6] = jj_gen;
+        jj_la1[8] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -218,7 +251,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
       ASM_expresiones_bloque();
       break;
     default:
-      jj_la1[7] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -233,7 +266,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
       ASM_expresion_mientras();
       break;
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[10] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -269,7 +302,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
         ;
         break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[11] = jj_gen;
         break label_3;
       }
       ASM_expresion();
@@ -287,13 +320,13 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[10];
+  static final private int[] jj_la1 = new int[12];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x4000620,0x80000,0x7c00000,0x3c00000,0x40000,0x7c00800,0x4000020,0x4000620,0x600,0x4000620,};
+      jj_la1_0 = new int[] {0x10000620,0x100000,0x1f000000,0xf000000,0xc0000,0xc0000,0x1f840800,0x840000,0x10000020,0x10000620,0x600,0x10000620,};
    }
 
   /** Constructor with InputStream. */
@@ -314,7 +347,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -328,7 +361,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -345,7 +378,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -355,7 +388,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -371,7 +404,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -380,7 +413,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 10; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 12; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -431,12 +464,12 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[27];
+    boolean[] la1tokens = new boolean[29];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 12; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -445,7 +478,7 @@ public class AnalizadorSemantico implements AnalizadorSemanticoConstants {
         }
       }
     }
-    for (int i = 0; i < 27; i++) {
+    for (int i = 0; i < 29; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

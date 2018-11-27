@@ -1,6 +1,7 @@
 package tiposDeDatos;
 
 import operadores.Operador;
+import operadores.OperadorUnario;
 
 public class TipoError implements TipoDeDato<ObjetoError> {
 
@@ -19,6 +20,10 @@ public class TipoError implements TipoDeDato<ObjetoError> {
         throw new Exception("No se puede operar con errores");
     }
 
+    @Override
+    public ObjetoError operar(OperadorUnario op, Object op1) throws Exception {
+        throw new Exception("No se puede operar con errores");
+    }
 
     @Override
     public String toString() {
@@ -29,18 +34,4 @@ public class TipoError implements TipoDeDato<ObjetoError> {
         return new ObjetoError(str);
     }
 
-}
-
-class ObjetoError {
-
-    String valor;
-
-    public ObjetoError(String str){
-        valor = str;
-    }
-
-    @Override
-    public String toString() {
-        return this.valor;
-    }
 }

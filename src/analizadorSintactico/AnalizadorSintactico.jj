@@ -47,14 +47,19 @@ TOKEN :
 | < PUNTO: ".">
 }
 
-
 /* Operadores */
 TOKEN :
 {
-< OPERADOR: <OPERADOR_LOGICO> | <OPERADOR_ARITMETICO> >
+<NEGACION: "-">
+| < OPERADOR: <OPERADOR_LOGICO> | <OPERADOR_ARITMETICO> >
 | < ASIGNACION: "=" >
 | < OPERADOR_LOGICO: ">" | "<" | "==" | "<=" | ">=" | "!=" | "&&" | "||">
-| < OPERADOR_ARITMETICO: "-"|"+"|"*"|"/" >
+| < OPERADOR_ARITMETICO: "+"|"*"|"/" >
+}
+
+TOKEN :
+{
+  <OPERADOR_UNARIO: "!" >
 }
 
 /* Literales */
@@ -113,11 +118,19 @@ void AS_valor():{}{
 
 
 void AS_expresion_matematica():{}{
-    AS_Operador() (<OPERADOR> AS_Operador())*
+    AS_Operando() (AS_Operador() AS_Operando())*
+}
+
+void AS_Operando():{}{
+    AS_valor() | <PARENTESIS_IZQ> AS_expresion_matematica() <PARENTESIS_DER> | AS_operador_unario() AS_Operando()
 }
 
 void AS_Operador():{}{
-    AS_valor() | <PARENTESIS_IZQ> AS_expresion_matematica() <PARENTESIS_DER>
+  <OPERADOR> | <NEGACION>
+}
+
+void AS_operador_unario():{}{
+  <OPERADOR_UNARIO> | <NEGACION>
 }
 
 void AS_expresion():{}{
@@ -139,4 +152,3 @@ void AS_expresion_mientras():{}{
 void AS_bloque():{}{
     <CORCHETE_IZQ> (AS_expresion())* <CORCHETE_DER>
 }
-

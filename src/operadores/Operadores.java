@@ -17,8 +17,16 @@ public class Operadores {
 //        mapaOperadores.put("==",new Suma("sumar"));
     }
 
+    private static final Map<String, OperadorUnario> mapaOperadoresUnarios;
+    static {
+        mapaOperadoresUnarios = new HashMap<>();
+        mapaOperadoresUnarios.put("-",new Negacion("negar"));
+    }
+
     public static Operador getOperador(String operador){
         return mapaOperadores.get(operador);
     }
-
+    public static OperadorUnario getOperadorUnario(String operador){
+        return mapaOperadoresUnarios.get(operador);
+    }
 }

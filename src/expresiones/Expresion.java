@@ -1,6 +1,7 @@
 package expresiones;
 
 import operadores.Operador;
+import operadores.OperadorUnario;
 import simbolos.Identificador;
 import simbolos.Literal;
 
@@ -19,8 +20,12 @@ public class Expresion {
     public void agregarNodo(Literal literal){
         construir(new Nodo(precedenciaBase,new ContenidoLiteral(literal)));
     }
+
     public  void agregarNodo(Operador operador){
         construir(new Nodo(precedenciaBase,new ContenidoOperador(operador)));
+    }
+    public  void agregarNodo(OperadorUnario operadorUnario){
+        construir(new Nodo(precedenciaBase,new ContenidoOperadorUnario(operadorUnario)));
     }
 
     private void construir(Nodo nodo){
@@ -28,9 +33,6 @@ public class Expresion {
             nodo.left = nodos.pop();
         }
         if (!nodos.isEmpty()) {
-//            System.out.println("peeking");
-//            System.out.println(nodos.peek().contenido + ", " + nodos.peek().getPrecedencia());
-//            System.out.println(nodo.contenido + ", "+nodo.getPrecedencia());
             nodos.peek().right = nodo;
         }
         nodos.push(nodo);

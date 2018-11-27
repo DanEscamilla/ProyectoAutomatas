@@ -44,14 +44,16 @@ public class main {
         try {
             analizadorSemantico.analizar();
         }catch(analizadorSemantico.ParseException e){
+            System.out.println("SEMANTICO");
             System.out.println(e.toString());
         }
 
+        ManejadorExpresiones.print();
+
+        Thread.sleep(100);
         ManejadorErrores.print();
         Thread.sleep(100);
 
-
-        ManejadorExpresiones.print();
 
         System.out.println("\nTabla de simbolos");
         tablaDeSimbolos.print();

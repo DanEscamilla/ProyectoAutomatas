@@ -2,6 +2,7 @@ package tiposDeDatos;
 
 
 import operadores.Operador;
+import operadores.OperadorUnario;
 
 public class Cadena implements TipoDeDato<String> {
 
@@ -15,6 +16,11 @@ public class Cadena implements TipoDeDato<String> {
     @Override
     public String operar(Operador op, Object op1, Object op2) throws Exception {
         return op.operar((String) op1,(String) op2);
+    }
+
+    @Override
+    public String operar(OperadorUnario op, Object op1) throws Exception {
+        return op.operar((String)op1);
     }
 
     @Override
